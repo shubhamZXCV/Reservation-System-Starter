@@ -2,15 +2,24 @@ package flight.reservation.order;
 
 import flight.reservation.Customer;
 import flight.reservation.flight.ScheduledFlight;
+import flight.reservation.observer.BookingObserver;
 import flight.reservation.payment.CreditCard;
+import flight.reservation.payment.CreditCardAdapter;
+import flight.reservation.payment.CreditCardPaymentStrategy;
 import flight.reservation.payment.Paypal;
+import flight.reservation.payment.PaymentProcessor;
+import flight.reservation.payment.PayPalAdapter;
+import flight.reservation.payment.PaymentStrategy;
+import flight.reservation.payment.PayPalPaymentStrategy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class FlightOrder extends Order {
     private final List<ScheduledFlight> flights;
+    private final List<BookingObserver> observers = new ArrayList<>();
     static List<String> noFlyList = Arrays.asList("Peter", "Johannes");
 
     public FlightOrder(List<ScheduledFlight> flights) {
@@ -23,6 +32,55 @@ public class FlightOrder extends Order {
 
     public List<ScheduledFlight> getScheduledFlights() {
         return flights;
+    }
+
+    /**
+     * Add an observer to this order.
+     *
+     * @param observer the observer to add
+     */
+    public void addObserver(BookingObserver observer) {
+        if (observer != null) {
+            observers.add(observer);
+        }
+    }
+
+    /**
+     * Remove an observer from this order.
+     *
+     * @param observer the observer to remove
+     */
+    public void removeObserver(BookingObserver observer) {
+        observers.remove(observer);
+    }
+
+    /**
+     * Notify all observers that booking has been confirmed.
+     */
+    private void notifyBookingConfirmed() {
+        for (BookingObserver observer : observers) {
+            observer.onBookingConfirmed(this);
+        }
+    }
+
+    /**
+     * Notify all observers that payment has been processed.
+     *
+     * @param amount the amount paid
+     */
+    private void notifyPaymentProcessed(double amount) {
+        for (BookingObserver observer : observers) {
+            observer.onPaymentProcessed(this, amount);
+        }
+    }
+
+    /**
+     * Notify all observers that booking has been cancelled.
+     */
+    private void notifyBookingCancelled() {
+        for (BookingObserver observer : observers) {
+            observer.onBookingCancelled(this);
+        }
     }
 
     private boolean isOrderValid(Customer customer, List<String> passengerNames, List<ScheduledFlight> flights) {
@@ -57,12 +115,60 @@ public class FlightOrder extends Order {
         boolean isPaid = payWithCreditCard(creditCard, this.getPrice());
         if (isPaid) {
             this.setClosed();
+            notifyBookingConfirmed();
+            notifyPaymentProcessed(this.getPrice());
         }
         return isPaid;
     }
 
     private boolean cardIsPresentAndValid(CreditCard card) {
         return card != null && card.isValid();
+    }
+
+    /**
+     * Process payment using the adapter-based PaymentProcessor interface.
+     * This is the new way to process payments using adapters.
+     *
+     * @param processor the payment processor (adapter)
+     * @return true if payment is successful
+     * @throws IllegalStateException if payment fails
+     */
+    public boolean processPayment(PaymentProcessor processor) throws IllegalStateException {
+        if (isClosed()) {
+            return true;
+        }
+        if (processor == null || !processor.isPaymentValid()) {
+            throw new IllegalStateException("Payment information is not set or not valid.");
+        }
+        boolean isPaid = processor.processPayment(this.getPrice());
+        if (isPaid) {
+            this.setClosed();
+        }
+        return isPaid;
+    }
+
+    /**
+     * Process payment using the strategy-based PaymentStrategy interface.
+     * This uses the Strategy Pattern to handle different payment algorithms.
+     *
+     * @param strategy the payment strategy
+     * @return true if payment is successful
+     * @throws IllegalStateException if strategy validation fails or payment fails
+     */
+    public boolean processPaymentWithStrategy(PaymentStrategy strategy) throws IllegalStateException {
+        if (isClosed()) {
+            return true;
+        }
+        if (strategy == null || !strategy.validate()) {
+            throw new IllegalStateException("Payment strategy is invalid.");
+        }
+        boolean isPaid = strategy.execute(this.getPrice());
+        if (isPaid) {
+            this.setClosed();
+            notifyBookingConfirmed();
+            notifyPaymentProcessed(this.getPrice());
+        }
+        return isPaid;
     }
 
     public boolean processOrderWithPayPal(String email, String password) throws IllegalStateException {
@@ -77,6 +183,8 @@ public class FlightOrder extends Order {
         boolean isPaid = payWithPayPal(email, password, this.getPrice());
         if (isPaid) {
             this.setClosed();
+            notifyBookingConfirmed();
+            notifyPaymentProcessed(this.getPrice());
         }
         return isPaid;
     }

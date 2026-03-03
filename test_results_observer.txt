@@ -1,0 +1,81 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------< [0;36mcom.github.fortiss-cce:flight-reservation[0;1m >--------------[m
+[[1;34mINFO[m] [1mBuilding flight-reservation 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mflight-reservation[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/shubham/Reservation-System-Starter/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mflight-reservation[0;1m ---[m
+[[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[[1;34mINFO[m] skip non existing resourceDirectory /home/shubham/Reservation-System-Starter/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mflight-reservation[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;33mWARNING[m] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[[1;34mINFO[m] Compiling 31 source files to /home/shubham/Reservation-System-Starter/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mflight-reservation[0;1m ---[m
+[[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[[1;34mINFO[m] skip non existing resourceDirectory /home/shubham/Reservation-System-Starter/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:testCompile[m [1m(default-testCompile)[m @ [36mflight-reservation[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;33mWARNING[m] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[[1;34mINFO[m] Compiling 3 source files to /home/shubham/Reservation-System-Starter/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:3.0.0-M5:test[m [1m(default-test)[m @ [36mflight-reservation[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m]  T E S T S
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnExistingSchedule[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsSearched[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m3[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s - in flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsSearched[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsScheduled[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsScheduled[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsRemoved[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m2[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 s - in flight.reservation.[1mScheduleTest$GivenAnExistingSchedule$AFlightIsRemoved[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 s - in flight.reservation.[1mScheduleTest$GivenAnExistingSchedule[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnEmptySchedule[m
+[[1;34mINFO[m] Running flight.reservation.[1mScheduleTest$GivenAnEmptySchedule$WhenAFlightIsScheduled[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m8[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s - in flight.reservation.[1mScheduleTest$GivenAnEmptySchedule$WhenAFlightIsScheduled[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s - in flight.reservation.[1mScheduleTest$GivenAnEmptySchedule[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.15 s - in flight.reservation.[1mScheduleTest[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardValid[m
+Paying 100.0 using Credit Card.
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.416 s - in flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardValid[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardNotValid[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardNotValid[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardLimitReached[m
+Paying 100.0 using Credit Card.
+Card limit reached - Balance: -90.000000
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s - in flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment$CreditCardLimitReached[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.434 s - in flight.reservation.[1mScenarioTest$CustomerOnePassengerCreditCardPayment[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible$H1Empty[m
+Paying 180.0 using PayPal.
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s - in flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible$H1Empty[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible$H1FullyBooked[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s - in flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible$H1FullyBooked[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s - in flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$FlightIsPossible[m
+[[1;34mINFO[m] Running flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$NoHelicoptersInFrankfurt[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment$NoHelicoptersInFrankfurt[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s - in flight.reservation.[1mScenarioTest$CustomerTwoPassengersPaypalPayment[m
+[[1;34mINFO[m] [1mTests run: [0;1m0[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.461 s - in flight.reservation.[1mScenarioTest[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] Results:
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1;32mTests run: 20, Failures: 0, Errors: 0, Skipped: 0[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  3.653 s
+[[1;34mINFO[m] Finished at: 2026-03-03T17:45:56+05:30
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m

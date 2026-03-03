@@ -3,6 +3,11 @@ package flight.reservation;
 import flight.reservation.flight.ScheduledFlight;
 import flight.reservation.order.FlightOrder;
 import flight.reservation.order.Order;
+import flight.reservation.validator.CapacityValidator;
+import flight.reservation.validator.FlightBookingRequest;
+import flight.reservation.validator.FlightBookingValidator;
+import flight.reservation.validator.NoFlyListValidator;
+import flight.reservation.validator.PriceValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +43,33 @@ public class Customer {
     }
 
     private boolean isOrderValid(List<String> passengerNames, List<ScheduledFlight> flights) {
-        boolean valid = true;
-        valid = valid && !FlightOrder.getNoFlyList().contains(this.getName());
-        valid = valid && passengerNames.stream().noneMatch(passenger -> FlightOrder.getNoFlyList().contains(passenger));
-        valid = valid && flights.stream().allMatch(scheduledFlight -> {
-            try {
-                return scheduledFlight.getAvailableCapacity() >= passengerNames.size();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-                return false;
-            }
-        });
-        return valid;
+        return isOrderValid(passengerNames, flights, 0.0);
+    }
+
+    /**
+     * Validates the order using the Chain of Responsibility pattern.
+     * Builds a validator chain and checks all validations sequentially.
+     *
+     * @param passengerNames the list of passenger names
+     * @param flights the list of flights
+     * @param price the price of the order
+     * @return true if order is valid, false otherwise
+     */
+    private boolean isOrderValid(List<String> passengerNames, List<ScheduledFlight> flights, double price) {
+        // Build the validator chain
+        FlightBookingValidator noFlyListValidator = new NoFlyListValidator();
+        FlightBookingValidator capacityValidator = new CapacityValidator();
+        FlightBookingValidator priceValidator = new PriceValidator();
+
+        // Chain the validators
+        noFlyListValidator.setNextValidator(capacityValidator);
+        capacityValidator.setNextValidator(priceValidator);
+
+        // Create the request and validate
+        FlightBookingRequest request = new FlightBookingRequest(this, passengerNames, flights, price);
+        FlightBookingRequest result = noFlyListValidator.validate(request);
+
+        return result.isValid();
     }
 
     public String getEmail() {
