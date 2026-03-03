@@ -1,0 +1,36 @@
+@startuml strategy_before
+title Strategy Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class CreditCard {
+    - double amount
+    - String number
+    + isValid(): boolean
+    + getAmount(): double
+    + setAmount(double): void
+}
+
+class Paypal {
+    + {static} Map<String,String> DATA_BASE
+}
+
+class FlightOrder {
+    + processOrderWithCreditCard(CreditCard): boolean
+    + processOrderWithPayPal(String, String): boolean
+    + payWithCreditCard(CreditCard, double): boolean
+    + payWithPayPal(String, String, double): boolean
+}
+
+FlightOrder --> CreditCard: uses
+FlightOrder --> Paypal: uses
+
+note bottom of FlightOrder
+  Payment algorithms mixed in one class
+  Different signatures and logic
+  Code duplication for validation
+  Hard to add new payment methods
+  No runtime algorithm selection
+end note
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml chain_after
+title Chain of Responsibility Pattern - AFTER (With Chain of Responsibility)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+class FlightBookingRequest {
+    - Customer customer
+    - List<String> passengerNames
+    - List<ScheduledFlight> flights
+    - double price
+    - String rejectionReason
+    + getCustomer(): Customer
+    + getPassengerNames(): List<String>
+    + getFlights(): List<ScheduledFlight>
+    + getPrice(): double
+    + getRejectionReason(): String
+}
+
+abstract class FlightBookingValidator {
+    # FlightBookingValidator nextValidator
+    + validate(FlightBookingRequest): FlightBookingRequest
+    # {abstract} doValidation(FlightBookingRequest): boolean
+    + setNextValidator(FlightBookingValidator): void
+}
+
+class NoFlyListValidator extends FlightBookingValidator {
+    # doValidation(FlightBookingRequest): boolean
+}
+
+class CapacityValidator extends FlightBookingValidator {
+    # doValidation(FlightBookingRequest): boolean
+}
+
+class CustomerHistoryValidator extends FlightBookingValidator {
+    # doValidation(FlightBookingRequest): boolean
+}
+
+class PriceValidator extends FlightBookingValidator {
+    # doValidation(FlightBookingRequest): boolean
+}
+
+FlightBookingValidator --> FlightBookingRequest: validates
+FlightBookingValidator --> FlightBookingValidator: passes to next
+NoFlyListValidator --|> FlightBookingValidator
+CapacityValidator --|> FlightBookingValidator
+CustomerHistoryValidator --|> FlightBookingValidator
+PriceValidator --|> FlightBookingValidator
+
+note bottom of FlightBookingValidator
+  Each validator has single responsibility
+  Validators linked in chain
+  Request passed through chain
+  Easy to add/remove validators
+  Validation order configurable
+  Reusable validators
+end note
+
+@enduml

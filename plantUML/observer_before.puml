@@ -1,0 +1,39 @@
+@startuml observer_before
+title Observer Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class FlightOrder {
+    - List<ScheduledFlight> flights
+    + processOrderWithCreditCard(CreditCard): boolean
+    + processOrderWithPayPal(String, String): boolean
+    + payWithCreditCard(CreditCard, double): boolean
+    + payWithPayPal(String, String, double): boolean
+}
+
+class CreditCard {
+    - double amount
+    - String number
+    - Date date
+    - String cvv
+    - boolean valid
+    + isValid(): boolean
+    + getAmount(): double
+    + setAmount(double): void
+}
+
+class Paypal {
+    - static Map<String,String> DATA_BASE
+}
+
+FlightOrder --> CreditCard: uses
+FlightOrder --> Paypal: uses
+
+note bottom of FlightOrder
+  No notification mechanism
+  Tightly coupled to payment methods
+  No way to react to booking events
+  Manual logging required elsewhere
+end note
+
+@enduml

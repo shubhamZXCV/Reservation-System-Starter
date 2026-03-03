@@ -1,0 +1,64 @@
+@startuml builder_after
+title Builder Pattern - AFTER (With Builder Pattern)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+class Customer {
+    - String name
+    - String email
+}
+
+class ImmutableFlightOrder {
+    - UUID id
+    - Customer customer
+    - List<Passenger> passengers
+    - List<ScheduledFlight> flights
+    - double price
+    - boolean isClosed
+    + getId(): UUID
+    + getCustomer(): Customer
+    + getPassengers(): List<Passenger>
+    + getFlights(): List<ScheduledFlight>
+    + getPrice(): double
+}
+
+class FlightOrderBuilder {
+    - Customer customer
+    - List<ScheduledFlight> flights
+    - List<Passenger> passengers
+    - double price
+    + FlightOrderBuilder(Customer, List)
+    + addPassenger(String): FlightOrderBuilder
+    + addPassengers(List): FlightOrderBuilder
+    + withPrice(double): FlightOrderBuilder
+    + build(): ImmutableFlightOrder
+    - validatePassengers(): void
+    - validatePrice(): void
+    - validateCapacity(): void
+}
+
+class Passenger {
+    - String name
+}
+
+class ScheduledFlight {
+    - int number
+}
+
+ImmutableFlightOrder --> Customer
+ImmutableFlightOrder --> Passenger
+ImmutableFlightOrder --> ScheduledFlight
+FlightOrderBuilder --> ImmutableFlightOrder: creates
+FlightOrderBuilder --> Passenger
+FlightOrderBuilder --> ScheduledFlight
+
+note bottom of FlightOrderBuilder
+  Step-by-step construction
+  Fluent interface
+  Validation before creation
+  Immutable result
+  Clear required fields
+  Better error messages
+end note
+
+@enduml

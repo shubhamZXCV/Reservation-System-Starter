@@ -1,0 +1,68 @@
+@startuml adapter_after
+title Adapter Pattern - AFTER (With Adapter Pattern)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+interface PaymentProcessor {
+    + isPaymentValid(): boolean
+    + processPayment(double): boolean
+    + getPaymentMethodName(): String
+}
+
+class CreditCardAdapter implements PaymentProcessor {
+    - CreditCard creditCard
+    + CreditCardAdapter(CreditCard)
+    + isPaymentValid(): boolean
+    + processPayment(double): boolean
+    + getPaymentMethodName(): String
+}
+
+class PayPalAdapter implements PaymentProcessor {
+    - String email
+    - String password
+    + PayPalAdapter(String, String)
+    + isPaymentValid(): boolean
+    + processPayment(double): boolean
+    + getPaymentMethodName(): String
+}
+
+class ApplePayAdapter implements PaymentProcessor {
+    - String tokenizedData
+    + ApplePayAdapter(String)
+    + isPaymentValid(): boolean
+    + processPayment(double): boolean
+    + getPaymentMethodName(): String
+}
+
+class CreditCard {
+    - double amount
+    - String number
+}
+
+class Paypal {
+    + {static} Map<String,String> DATA_BASE
+}
+
+class FlightOrderWithAdapters {
+    + processPayment(PaymentProcessor): boolean
+    + processOrderWithCreditCard(CreditCard): boolean
+    + processOrderWithPayPal(String, String): boolean
+}
+
+CreditCardAdapter --|> PaymentProcessor
+PayPalAdapter --|> PaymentProcessor
+ApplePayAdapter --|> PaymentProcessor
+
+CreditCardAdapter --> CreditCard: adapts
+PayPalAdapter --> Paypal: adapts
+
+FlightOrderWithAdapters --> PaymentProcessor: uses (unified)
+
+note bottom of PaymentProcessor
+  Unified payment interface
+  All payment methods compatible
+  Easy to add new adapters
+  No duplicate processing code
+end note
+
+@enduml

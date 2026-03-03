@@ -1,0 +1,40 @@
+@startuml chain_before
+title Chain of Responsibility Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class Customer {
+    - String name
+    - String email
+    + createOrder(...): FlightOrder
+    - isOrderValid(...): boolean
+}
+
+class FlightOrder {
+    - List<ScheduledFlight> flights
+    + processOrderWithCreditCard(CreditCard): boolean
+}
+
+class ScheduledFlight {
+    - int number
+    - int capacity
+    + getAvailableCapacity(): int
+}
+
+Customer --> FlightOrder: creates and validates
+FlightOrder --> ScheduledFlight: uses
+
+note bottom of Customer
+  Validation logic mixed in one method
+  Multiple concerns in single function
+  Hard to test individual validations
+  Difficult to modify validation rules
+  Not reusable across different contexts
+end note
+
+note bottom of FlightOrder
+  Additional validation scattered here
+  No clear separation of concerns
+end note
+
+@enduml

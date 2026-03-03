@@ -1,0 +1,59 @@
+@startuml strategy_after
+title Strategy Pattern - AFTER (With Strategy Pattern)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+interface PaymentStrategy {
+    + validate(): boolean
+    + execute(double): boolean
+    + getStrategyName(): String
+}
+
+class CreditCardPaymentStrategy implements PaymentStrategy {
+    - CreditCard creditCard
+    + CreditCardPaymentStrategy(CreditCard)
+    + validate(): boolean
+    + execute(double): boolean
+    + getStrategyName(): String
+}
+
+class PayPalPaymentStrategy implements PaymentStrategy {
+    - String email
+    - String password
+    + PayPalPaymentStrategy(String, String)
+    + validate(): boolean
+    + execute(double): boolean
+    + getStrategyName(): String
+}
+
+class GooglePayPaymentStrategy implements PaymentStrategy {
+    - String accountId
+    - String deviceToken
+    + GooglePayPaymentStrategy(String, String)
+    + validate(): boolean
+    + execute(double): boolean
+    + getStrategyName(): String
+}
+
+class FlightOrderWithStrategies {
+    - PaymentStrategy paymentStrategy
+    + setPaymentStrategy(PaymentStrategy): void
+    + processPayment(): boolean
+}
+
+CreditCardPaymentStrategy --|> PaymentStrategy
+PayPalPaymentStrategy --|> PaymentStrategy
+GooglePayPaymentStrategy --|> PaymentStrategy
+
+FlightOrderWithStrategies --> PaymentStrategy: uses
+
+note bottom of FlightOrderWithStrategies
+  Isolated payment algorithms
+  Uniform interface
+  Runtime strategy selection
+  Easy to add new strategies
+  Single responsibility per strategy
+  No code duplication
+end note
+
+@enduml

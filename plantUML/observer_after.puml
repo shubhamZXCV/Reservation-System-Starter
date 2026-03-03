@@ -1,0 +1,54 @@
+@startuml observer_after
+title Observer Pattern - AFTER (With Observer Pattern)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+interface BookingObserver {
+    + onBookingConfirmed(FlightOrder): void
+    + onPaymentProcessed(FlightOrder, double): void
+    + onBookingCancelled(FlightOrder): void
+}
+
+class EmailNotificationObserver implements BookingObserver {
+    + onBookingConfirmed(FlightOrder): void
+    + onPaymentProcessed(FlightOrder, double): void
+    + onBookingCancelled(FlightOrder): void
+}
+
+class LoggingObserver implements BookingObserver {
+    + onBookingConfirmed(FlightOrder): void
+    + onPaymentProcessed(FlightOrder, double): void
+    + onBookingCancelled(FlightOrder): void
+}
+
+class AnalyticsObserver implements BookingObserver {
+    + onBookingConfirmed(FlightOrder): void
+    + onPaymentProcessed(FlightOrder, double): void
+    + onBookingCancelled(FlightOrder): void
+}
+
+class FlightOrder {
+    - List<ScheduledFlight> flights
+    - List<BookingObserver> observers
+    + processOrderWithCreditCard(CreditCard): boolean
+    + processOrderWithPayPal(String, String): boolean
+    + addObserver(BookingObserver): void
+    + removeObserver(BookingObserver): void
+    ~ notifyObserversBookingConfirmed(): void
+    ~ notifyObserversPaymentProcessed(double): void
+    ~ notifyObserversBookingCancelled(): void
+}
+
+FlightOrder --> BookingObserver: notifies
+EmailNotificationObserver --|> BookingObserver
+LoggingObserver --|> BookingObserver
+AnalyticsObserver --|> BookingObserver
+
+note bottom of FlightOrder
+  Decoupled from observers
+  Multiple notification mechanisms
+  Easy to add new observers
+  Automatic notification dispatch
+end note
+
+@enduml

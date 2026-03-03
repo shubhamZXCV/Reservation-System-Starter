@@ -1,0 +1,6 @@
+mkdir -p out
+find src/main/java -name "*.java" | xargs javac -d out
+
+
+find out -name "*.class" | \
+xargs java -cp "ckjm_ext.jar:out" gr.spinellis.ckjm.MetricsFilter

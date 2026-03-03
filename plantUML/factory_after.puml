@@ -1,0 +1,72 @@
+@startuml factory_after
+title Factory Pattern - AFTER (With Factory Pattern)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #E1FFE4
+
+abstract class Aircraft {
+    # String model
+    # int passengerCapacity
+    # int crewCapacity
+    + {abstract} getModel(): String
+    + {abstract} getPassengerCapacity(): int
+    + {abstract} getCrewCapacity(): int
+    + {abstract} getAircraftType(): String
+}
+
+class PassengerPlaneImpl extends Aircraft {
+    + PassengerPlaneImpl(String model)
+    - initializeCapacity(String): void
+    + getModel(): String
+    + getPassengerCapacity(): int
+    + getCrewCapacity(): int
+    + getAircraftType(): String
+}
+
+class HelicopterImpl extends Aircraft {
+    + HelicopterImpl(String model)
+    - initializeCapacity(String): void
+    + getModel(): String
+    + getPassengerCapacity(): int
+    + getCrewCapacity(): int
+    + getAircraftType(): String
+}
+
+class PassengerDroneImpl extends Aircraft {
+    + PassengerDroneImpl(String model)
+    + getModel(): String
+    + getPassengerCapacity(): int
+    + getCrewCapacity(): int
+    + getAircraftType(): String
+}
+
+class AircraftFactory {
+    + {static} createAircraft(String type, String model): Aircraft
+    + {static} createFromModel(String model): Aircraft
+    - {static} isPassengerPlaneModel(String): boolean
+    - {static} isHelicopterModel(String): boolean
+    - {static} isDroneModel(String): boolean
+}
+
+class ScheduledFlight {
+    - Aircraft aircraft
+    + getCapacity(): int
+    + getCrewMemberCapacity(): int
+}
+
+AircraftFactory ...> PassengerPlaneImpl: creates
+AircraftFactory ...> HelicopterImpl: creates
+AircraftFactory ...> PassengerDroneImpl: creates
+ScheduledFlight --> Aircraft: uses
+
+PassengerPlaneImpl --|> Aircraft
+HelicopterImpl --|> Aircraft
+PassengerDroneImpl --|> Aircraft
+
+note bottom of AircraftFactory
+  Centralized object creation
+  Eliminates type checking scattered code
+  Easy to add new aircraft types
+  Polymorphic interface
+end note
+
+@enduml

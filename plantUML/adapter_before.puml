@@ -1,0 +1,41 @@
+@startuml adapter_before
+title Adapter Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class CreditCard {
+    - double amount
+    - String number
+    - Date date
+    - String cvv
+    - boolean valid
+    + isValid(): boolean
+    + getAmount(): double
+    + setAmount(double): void
+}
+
+class Paypal {
+    + {static} Map<String,String> DATA_BASE
+}
+
+class FlightOrder {
+    + processOrderWithCreditCard(CreditCard): boolean
+    + processOrderWithPayPal(String, String): boolean
+    + payWithCreditCard(CreditCard, double): boolean
+    + payWithPayPal(String, String, double): boolean
+}
+
+FlightOrder --> CreditCard: uses
+FlightOrder --> Paypal: uses
+
+note bottom of FlightOrder
+  Incompatible interfaces:
+  - CreditCard: isValid(), getAmount()
+  - PayPal: static DATA_BASE + email/password
+  
+  Duplicate payment processing code
+  Different method signatures
+  Hard to add new payment methods
+end note
+
+@enduml

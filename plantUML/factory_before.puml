@@ -1,0 +1,45 @@
+@startuml factory_before
+title Factory Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class PassengerPlane {
+    + String model
+    + int passengerCapacity
+    + int crewCapacity
+}
+
+class Helicopter {
+    - String model
+    - int passengerCapacity
+    + getModel(): String
+    + getPassengerCapacity(): int
+}
+
+class PassengerDrone {
+    - String model
+}
+
+class ScheduledFlight {
+    - List<Passenger> passengers
+    - Date departureTime
+    + getCapacity(): int
+    + getCrewMemberCapacity(): int
+}
+
+ScheduledFlight --> PassengerPlane: checks type
+ScheduledFlight --> Helicopter: checks type
+ScheduledFlight --> PassengerDrone: checks type
+
+note right of ScheduledFlight
+  Type checking scattered in code:
+  if (aircraft instanceof PassengerPlane)
+  else if (aircraft instanceof Helicopter)
+  else if (aircraft instanceof PassengerDrone)
+  
+  Repeated in multiple places
+  Difficult to add new aircraft types
+  No polymorphic interface
+end note
+
+@enduml

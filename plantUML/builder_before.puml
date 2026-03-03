@@ -1,0 +1,47 @@
+@startuml builder_before
+title Builder Pattern - BEFORE (Current State)
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #FFE4E1
+
+class Customer {
+    - String name
+    - String email
+    + createOrder(...): FlightOrder
+}
+
+class FlightOrder {
+    - UUID id
+    - Customer customer
+    - List<Passenger> passengers
+    - List<ScheduledFlight> flights
+    - double price
+    - boolean isClosed
+    + setCustomer(Customer): void
+    + setPassengers(List): void
+    + setPrice(double): void
+    + getScheduledFlights(): List
+}
+
+class Passenger {
+    - String name
+}
+
+class ScheduledFlight {
+    - int number
+    - Date departureTime
+    - List<Passenger> passengers
+}
+
+Customer --> FlightOrder: creates
+FlightOrder --> Passenger: contains
+FlightOrder --> ScheduledFlight: contains
+
+note bottom of FlightOrder
+  Multi-step creation with setters
+  Order of operations matters
+  No validation until usage
+  Mutable object
+  Hard to track required fields
+end note
+
+@enduml
