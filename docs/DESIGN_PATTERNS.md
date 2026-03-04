@@ -1,5 +1,12 @@
 # Design Patterns Analysis - Flight Reservation System
 
+### Team 29
+* Shubham Goel (2023101076)
+* Swam Singla (2023101134)
+* Saksham Chitkara (2023101021)
+* Shreyas Mehta (2023101059)
+* Srinivas Chitta (2025900001)
+
 ## Table of Contents
 1. [Observer Pattern](#observer-pattern)
 2. [Factory Pattern](#factory-pattern)
@@ -44,8 +51,8 @@ The Observer Pattern defines a one-to-many dependency between objects so that wh
 - ❌ Potential for memory leaks if observers not unsubscribed
 
 ### Class Diagram
-**Before Pattern**: [observer_before.puml](observer_before.puml)  
-**After Pattern**: [observer_after.puml](observer_after.puml)
+**Before Pattern**: ![observer_before.puml](../img/observer_before.svg)  
+**After Pattern**: ![observer_after.puml](../img/observer_after.svg)
 
 ### Implementation Example
 
@@ -201,8 +208,8 @@ if (aircraft instanceof PassengerPlane) {
 - ❌ Requires refactoring existing code
 
 ### Class Diagram
-**Before Pattern**: ![factory_before.puml](img/factory_before.svg)  
-**After Pattern**: ![factory_after.puml](img/factory_after.svg)
+**Before Pattern**: ![factory_before.puml](../img/factory_before.svg)  
+**After Pattern**: ![factory_after.puml](../img/factory_after.svg)
 
 ### Implementation Example
 
@@ -439,8 +446,8 @@ boolean isPaid = payWithPayPal(email, password, amount); // different signature
 - ❌ Requires understanding of adapter hierarchy
 
 ### Class Diagram
-**Before Pattern**: ![adapter_before.puml](img/adapter_after.svg)
-**After Pattern**: ![adapter_after.puml](img/adapter_before.svg)
+**Before Pattern**: ![adapter_before.puml](../img/adapter_before.svg)
+**After Pattern**: ![adapter_after.puml](../img/adapter_after.svg)
 
 ### Implementation Example
 
@@ -669,10 +676,10 @@ order.setPassengers(passengers);
 ### Class Diagram
 **Before Pattern**:
 
-![builder_before.puml](img/builder_before.svg) 
+![builder_before.puml](../img/builder_before.svg) 
 
 **After Pattern**: 
-![builder_after.puml](img/builder_after.svg)
+![builder_after.puml](../img/builder_after.svg)
 
 ### Implementation Example
 
@@ -871,8 +878,8 @@ public boolean processOrderWithPayPal(String email, String password) { ... }
 - ❌ Potential over-engineering
 
 ### Class Diagram
-**Before Pattern**: ![strategy_before.puml](img/strategy_before.svg) 
-**After Pattern**: ![strategy_after.puml](img/strategy_after.svg)
+**Before Pattern**: ![strategy_before.puml](../img/strategy_before.svg) 
+**After Pattern**: ![strategy_after.puml](../img/strategy_after.svg)
 
 ### Implementation Example
 
@@ -1137,8 +1144,8 @@ private boolean isOrderValid(List<String> passengerNames,
 - ❌ Performance overhead with multiple handler checks
 
 ### Class Diagram
-**Before Pattern**: ![chain_before.puml](img/chain_before.svg)  
-**After Pattern**: ![chain_after.puml](img/chain_after.svg)
+**Before Pattern**: ![chain_before.puml](../img/chain_before.svg)  
+**After Pattern**: ![chain_after.puml](../img/chain_after.svg)
 
 ### Implementation Example
 
